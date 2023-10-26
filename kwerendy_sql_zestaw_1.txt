@@ -1,0 +1,324 @@
+login as: vaitsiukr
+vaitsiukr@213.184.8.36's password:
+Linux bad2 4.10.17-1-pve #1 SMP PVE 4.10.17-16 (Tue, 11 Jul 2017 09:55:44 +0200) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Thu Oct 26 09:02:17 2023 from 213.184.8.163
+vaitsiukr@bad2:~$ mysql -u vaitsiukr -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 153
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use vaitsiukr
+Database changed
+mysql> CREAT TABLE pracownik (
+    -> pracownik ID int AUTO_INCREAMENT,
+    -> vaitsiuk varchar(30)NOT NULL,
+    -> imie varchar(25),
+    -> nrTelefonu varchar(12),
+    -> PRIMARY KEY (pracownik)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREAT TABLE pracownik (
+pracownik ID int AUTO_INCREAMENT,
+vaitsiuk varchar(30)NO' at line 1
+mysql> CREAT TABLE pracownik (
+    -> pracownik ID int AUTO_INCREAMENT,
+    -> nazwisko varchar(30)NOT NULL,
+    -> imie varchar(25),
+    -> nrTelefonu varchar(12),
+    -> PRIMARY KEY (pracownikID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREAT TABLE pracownik (
+pracownik ID int AUTO_INCREAMENT,
+nazwisko varchar(30)NO' at line 1
+mysql> CREAT TABLE pracownik (
+    -> pracownikID int AUTO_INCREAMENT,
+    -> nazwisko varchar(30)NOT NULL,
+    -> imie varchar(25),
+    -> nrTelefonu varchar(12),
+    -> PRIMARY KEY (pracownikID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREAT TABLE pracownik (
+pracownikID int AUTO_INCREAMENT,
+nazwisko varchar(30)NOT' at line 1
+mysql> CREAT TABLE pracownik (
+    -> pracownikID int AUTO_INCREMENT,
+    -> nazwisko varchar(30)NOT NULL,
+    -> imie varchar(25),
+    -> nrTelefonu varchar(12),
+    -> PRIMARY KEY (pracownikID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREAT TABLE pracownik (
+pracownikID int AUTO_INCREMENT,
+nazwisko varchar(30)NOT ' at line 1
+mysql> CREATE TABLE pracownik (
+    -> pracownikID int AUTO_INCREMENT,
+    -> nazwisko varchar(30)NOT NULL,
+    -> imie varchar(25),
+    -> nrTelefonu varchar(12),
+    -> PRIMARY KEY (pracownikID)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> DESC pracownik
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 2
+mysql> DESC pracownik;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| imie        | varchar(25) | YES  |     | NULL    |                |
+| nrTelefonu  | varchar(12) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO pracownik (nazwisko, imie)
+    -> VALUES('Nowak', 'Jan');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> DESC pracownik;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| imie        | varchar(25) | YES  |     | NULL    |                |
+| nrTelefonu  | varchar(12) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SEJECT * FROM pracownik;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEJECT * FROM pracownik' at line 1
+mysql> SELECT * FROM pracownik;
++-------------+----------+------+------------+
+| pracownikID | nazwisko | imie | nrTelefonu |
++-------------+----------+------+------------+
+|           1 | Nowak    | Jan  | NULL       |
++-------------+----------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE pracownik
+    -> SET nazwisko = 'Kowalski'
+    -> WHERE pracownikID = 1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM pracownik;
++-------------+----------+------+------------+
+| pracownikID | nazwisko | imie | nrTelefonu |
++-------------+----------+------+------------+
+|           1 | Kowalski | Jan  | NULL       |
++-------------+----------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE pracownik
+    -> ADD stanowisko VARCHAR(30);
+Query OK, 0 rows affected (0.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM pracownik;
++-------------+----------+------+------------+------------+
+| pracownikID | nazwisko | imie | nrTelefonu | stanowisko |
++-------------+----------+------+------------+------------+
+|           1 | Kowalski | Jan  | NULL       | NULL       |
++-------------+----------+------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> DESC pracownik;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| imie        | varchar(25) | YES  |     | NULL    |                |
+| nrTelefonu  | varchar(12) | YES  |     | NULL    |                |
+| stanowisko  | varchar(30) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DROP TABLE pracownik;
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> CREATE TABLE postac (
+    -> IDpostaci int AUTO_INCREMENT,
+    -> nazwa varchar(40),
+    -> rodzaj ENUM(wiking,ptak,kobieta),
+    -> data_ur DATE,
+    -> wiek UNSIGNED,
+    -> PRIMARY KEY (IDpostaci)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'wiking,ptak,kobieta),
+data_ur DATE,
+wiek UNSIGNED,
+PRIMARY KEY (IDpostaci)
+)' at line 4
+mysql> CREATE TABLE postac (
+    -> postacID int AUTO_INCREMENT,
+    -> nazwa varchar(40),
+    -> rodzaj ENUM(wiking,ptak,kobieta),
+    -> data_ur DATE,
+    -> wiek UNSIGNED,
+    -> PRIMARY KEY (postacID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'wiking,ptak,kobieta),
+data_ur DATE,
+wiek UNSIGNED,
+PRIMARY KEY (postacID)
+)' at line 4
+mysql> CREATE TABLE postac (
+    -> nazwa varchar(40),
+    -> rodzaj ENUM'(wiking','ptak','kobieta'),
+    -> data_ur DATE,
+    -> wiek int  UNSIGNED,
+    -> PRIMARY KEY (postacID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''(wiking','ptak','kobieta'),
+data_ur DATE,
+wiek int  UNSIGNED,
+PRIMARY KEY (post' at line 3
+mysql> CREATE TABLE postac ( nazwa varchar(40), rodzaj ENUM('wiking','ptak','kobieta'), data_ur DATE, wiek int  UNSIGNED, PRIMARY KEY (postacID) );
+ERROR 1072 (42000): Key column 'postacID' doesn't exist in table
+mysql> CREATE TABLE postac (
+    -> postacID int AUTO_INCREMENT,
+    -> nazwa varchar(40),
+    -> rodzaj ENUM('wiking','ptak','kobieta'),
+    -> data_ur DATE,
+    -> wiek int  UNSIGNED,
+    -> PRIMARY KEY (postacID)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> DESC postac
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 2
+mysql> DESC postac;
++----------+---------------------------------+------+-----+---------+----------------+
+| Field    | Type                            | Null | Key | Default | Extra          |
++----------+---------------------------------+------+-----+---------+----------------+
+| postacID | int                             | NO   | PRI | NULL    | auto_increment |
+| nazwa    | varchar(40)                     | YES  |     | NULL    |                |
+| rodzaj   | enum('wiking','ptak','kobieta') | YES  |     | NULL    |                |
+| data_ur  | date                            | YES  |     | NULL    |                |
+| wiek     | int unsigned                    | YES  |     | NULL    |                |
++----------+---------------------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE postac
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 2
+mysql> INSERT INTO postac (nazwa)
+    -> VALUES('Bjorn','Drozd','Tesciowa');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO postac (nazwa) VALUES 3 ('Bjorn','Drozd','Tesciowa');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3 ('Bjorn','Drozd','Tesciowa')' at line 1
+mysql> INSERT INTO postac (nazwa)
+    -> VALUES('Bjorn');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO postac (nazwa)
+    -> VALUES('Drozd');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO postac (nazwa)
+    -> VALUES('Tesciowa');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC postac;
++----------+---------------------------------+------+-----+---------+----------------+
+| Field    | Type                            | Null | Key | Default | Extra          |
++----------+---------------------------------+------+-----+---------+----------------+
+| postacID | int                             | NO   | PRI | NULL    | auto_increment |
+| nazwa    | varchar(40)                     | YES  |     | NULL    |                |
+| rodzaj   | enum('wiking','ptak','kobieta') | YES  |     | NULL    |                |
+| data_ur  | date                            | YES  |     | NULL    |                |
+| wiek     | int unsigned                    | YES  |     | NULL    |                |
++----------+---------------------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM postac;
++----------+----------+--------+---------+------+
+| postacID | nazwa    | rodzaj | data_ur | wiek |
++----------+----------+--------+---------+------+
+|        1 | Bjorn    | NULL   | NULL    | NULL |
+|        2 | Drozd    | NULL   | NULL    | NULL |
+|        3 | Tesciowa | NULL   | NULL    | NULL |
++----------+----------+--------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE postac
+    -> MODIFY COLUMN wiek 88
+    -> WHERE postacID = 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '88
+WHERE postacID = 3' at line 2
+mysql> ALTER TABLE postac
+    -> MODIFY COLUMN wiek '88'
+    -> WHERE postacID = 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''88'
+WHERE postacID = 3' at line 2
+mysql> ALTER TABLE postac
+    -> MODIFY COLUMN wiek =' 88'
+    -> WHERE postacID = 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=' 88'
+WHERE postacID = 3' at line 2
+mysql> UPDATE postac
+    -> SET wiek = '88'
+    -> WHERE postacID = 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM postac;
++----------+----------+--------+---------+------+
+| postacID | nazwa    | rodzaj | data_ur | wiek |
++----------+----------+--------+---------+------+
+|        1 | Bjorn    | NULL   | NULL    | NULL |
+|        2 | Drozd    | NULL   | NULL    | NULL |
+|        3 | Tesciowa | NULL   | NULL    |   88 |
++----------+----------+--------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE walizka )
+    -> walizkaID int AUTO_INCREMENT,
+    -> pojemnosc int UNSIGNED,
+    -> kolor ENUM('rozowy','czerwony','teczowy'',zolty'),
+    -> wlascicelID int ON DELETE KASKADE,
+    -> PRIMIARY KEY(walizkaID)
+    -> FOREGIN KEY(wlascicielID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+walizkaID int AUTO_INCREMENT,
+pojemnosc int UNSIGNED,
+kolor ENUM('rozowy','cze' at line 1
+mysql>
+mysql>
+mysql> mysql> ALTER TABLE pracownik
+    ->     -> ADD stanowisko VARCHAR(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> ALTER TABLE pracownik
+    -> ADD stanowisko VARCHAR(30)' at line 1
+mysql> Query OK, 0 rows affected (0.27 sec)
+    ->
+    ->
+    -> mysql> ALTER TABLE pracownik
+    ->     -> ADD stanowisko VARCHAR(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Query OK, 0 rows affected (0.27 sec)
+
+
+mysql> ALTER TABLE pracownik
+    -> ADD s' at line 1
+mysql> Query OK, 0 rows affected (0.27 sec)
+    ->
