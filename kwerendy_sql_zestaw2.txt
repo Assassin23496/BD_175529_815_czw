@@ -1,0 +1,527 @@
+login as: vaitsiukr
+vaitsiukr@213.184.8.36's password:
+Linux bad2 4.10.17-1-pve #1 SMP PVE 4.10.17-16 (Tue, 11 Jul 2017 09:55:44 +0200) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Wed Nov 15 22:44:55 2023 from 5.173.198.23
+vaitsiukr@bad2:~$ my sql -u vaitsiukr -p
+-bash: my: command not found
+vaitsiukr@bad2:~$ mysql -u vaitsiukr -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2825
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use vaitsiukr
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> ALTER TABLE postac ADD COLUMN pesel varchar(11) PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'postac.PRIMARY'
+mysql> ALTER TABLE postac ADD COLUMN pesel varchar(11), PRIMARY KEY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY' at line 1
+mysql> ALTER TABLE postac ADD COLUMN pesel varchar(11), PRIMARY KEY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY' at line 1
+mysql> show create table walizka;
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                           |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| walizka | CREATE TABLE `walizka` (
+  `id_walizki` int NOT NULL AUTO_INCREMENT,
+  `pojemnosc` int unsigned DEFAULT NULL,
+  `kolor` enum('rozowy','czerwony','teczowy','zolty') DEFAULT 'rozowy',
+  `id_wlasciciela` int DEFAULT NULL,
+  PRIMARY KEY (`id_walizki`),
+  KEY `id_wlasciciela` (`id_wlasciciela`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table postac;
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| postac | CREATE TABLE `postac` (
+  `postacID` int NOT NULL,
+  `nazwa` varchar(40) DEFAULT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date DEFAULT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(35) DEFAULT NULL,
+  `lodz` varchar(30) DEFAULT NULL,
+  KEY `lodz` (`lodz`),
+  CONSTRAINT `postac_ibfk_1` FOREIGN KEY (`lodz`) REFERENCES `statek` (`nazwa_statku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table izba;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                 |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| izba  | CREATE TABLE `izba` (
+  `adres_budynku` varchar(35) NOT NULL,
+  `nazwa_izby` varchar(35) NOT NULL,
+  `metraz` int unsigned DEFAULT NULL,
+  `wlasciciel` int DEFAULT NULL,
+  PRIMARY KEY (`adres_budynku`,`nazwa_izby`),
+  KEY `wlasciciel` (`wlasciciel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE postac ADD COLUMN pesel varchar(11), PRIMARY KEY(pesel);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY(pesel)' at line 1
+mysql> ALTER TABLE postac ADD COLUMN pesel varchar(11);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE postac ADD PRIMARY KEY (pesel);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> show create table postac;
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| postac | CREATE TABLE `postac` (
+  `postacID` int NOT NULL,
+  `nazwa` varchar(40) DEFAULT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date DEFAULT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(35) DEFAULT NULL,
+  `lodz` varchar(30) DEFAULT NULL,
+  `pesel` varchar(11) DEFAULT NULL,
+  KEY `lodz` (`lodz`),
+  CONSTRAINT `postac_ibfk_1` FOREIGN KEY (`lodz`) REFERENCES `statek` (`nazwa_statku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE postac pesel varchar(11) NOT NULL ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pesel varchar(11) NOT NULL' at line 1
+mysql> ALTER TABLE postac MODIFY COLUMN pesel VARCHAR(11) NOT NULL ADD PRIMARY KEY(pesel) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD PRIMARY KEY(pesel)' at line 1
+mysql> ALTER TABLE postac MODIFY COLUMN pesel VARCHAR(11) NOT NULL, ADD PRIMARY
+KEY(pesel) ;
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> ALTER TABLE postac MODIFY  rodzaj enum('wiking','ptak','kobieta','syrena')
+    -> ;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE postac MODIFY  rodzaj enum('wiking','ptak','kobieta','syrena');
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from postac;
++----------+----------+--------+------------+------+---------+------+-------+
+| postacID | nazwa    | rodzaj | data_ur    | wiek | funkcja | lodz | pesel |
++----------+----------+--------+------------+------+---------+------+-------+
+|        1 | Bjorn    | NULL   | NULL       | NULL | kapitan | NULL | NULL  |
+|        2 | Drozd    | NULL   | NULL       | NULL | NULL    | FRAG | NULL  |
+|        3 | Tesciowa | NULL   | NULL       |   88 | NULL    | NULL | NULL  |
+|        4 | warwar   | wiking | 1955-05-05 |   30 | NULL    | GROM | NULL  |
+|        5 | Amber    | wiking | 1955-05-05 |   35 | NULL    | GROM | NULL  |
+|        8 | JOY BOY  | wiking | 1955-05-05 |   36 | NULL    | GROM | NULL  |
++----------+----------+--------+------------+------+---------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc postac;
++----------+------------------------------------------+------+-----+---------+-------+
+| Field    | Type                                     | Null | Key | Default | Extra |
++----------+------------------------------------------+------+-----+---------+-------+
+| postacID | int                                      | NO   |     | NULL    |       |
+| nazwa    | varchar(40)                              | YES  |     | NULL    |       |
+| rodzaj   | enum('wiking','ptak','kobieta','syrena') | YES  |     | NULL    |       |
+| data_ur  | date                                     | YES  |     | NULL    |       |
+| wiek     | int unsigned                             | YES  |     | NULL    |       |
+| funkcja  | varchar(35)                              | YES  |     | NULL    |       |
+| lodz     | varchar(30)                              | YES  | MUL | NULL    |       |
+| pesel    | varchar(11)                              | YES  |     | NULL    |       |
++----------+------------------------------------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE postac MODIFY COLUMN pesel VARCHAR(11) NOT NULL, ADD PRIMARY
+mysql> select * from postac;
++----------+----------+--------+------------+------+---------+------+-------+
+| postacID | nazwa    | rodzaj | data_ur    | wiek | funkcja | lodz | pesel |
++----------+----------+--------+------------+------+---------+------+-------+
+|        1 | Bjorn    | NULL   | NULL       | NULL | kapitan | NULL | NULL  |
+|        2 | Drozd    | NULL   | NULL       | NULL | NULL    | FRAG | NULL  |
+|        3 | Tesciowa | NULL   | NULL       |   88 | NULL    | NULL | NULL  |
+|        4 | warwar   | wiking | 1955-05-05 |   30 | NULL    | GROM | NULL  |
+|        5 | Amber    | wiking | 1955-05-05 |   35 | NULL    | GROM | NULL  |
+|        8 | JOY BOY  | wiking | 1955-05-05 |   36 | NULL    | GROM | NULL  |
++----------+----------+--------+------------+------+---------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> update postac
+    -> set pesel ='12345678900' where postacID =1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update postac set pesel ='12345678901' where postacID =2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update postac set pesel ='12345678902' where postacID =3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update postac set pesel ='12345678903' where postacID =4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update postac set pesel ='12345678904' where postacID =5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update postac set pesel ='12345678905' where postacID =8;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> ALTER TABLE postac MODIFY COLUMN pesel VARCHAR(11) NOT NULL, ADD PRIMARY
+KEY(pesel) ;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc postac;
++----------+------------------------------------------+------+-----+---------+-------+
+| Field    | Type                                     | Null | Key | Default | Extra |
++----------+------------------------------------------+------+-----+---------+-------+
+| postacID | int                                      | NO   |     | NULL    |       |
+| nazwa    | varchar(40)                              | YES  |     | NULL    |       |
+| rodzaj   | enum('wiking','ptak','kobieta','syrena') | YES  |     | NULL    |       |
+| data_ur  | date                                     | YES  |     | NULL    |       |
+| wiek     | int unsigned                             | YES  |     | NULL    |       |
+| funkcja  | varchar(35)                              | YES  |     | NULL    |       |
+| lodz     | varchar(30)                              | YES  | MUL | NULL    |       |
+| pesel    | varchar(11)                              | NO   | PRI | NULL    |       |
++----------+------------------------------------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> shows table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shows table' at line 1
+mysql> show tables;
++---------------------+
+| Tables_in_vaitsiukr |
++---------------------+
+| izba                |
+| postac              |
+| przetwory           |
+| statek              |
+| walizka             |
++---------------------+
+5 rows in set (0.01 sec)
+
+mysql> INSERT INTO postac (nazwa)
+    -> VALUES ('Gertruda Nieszczera');
+ERROR 1364 (HY000): Field 'postacID' doesn't have a default value
+mysql> desc postac;
++----------+------------------------------------------+------+-----+---------+-------+
+| Field    | Type                                     | Null | Key | Default | Extra |
++----------+------------------------------------------+------+-----+---------+-------+
+| postacID | int                                      | NO   |     | NULL    |       |
+| nazwa    | varchar(40)                              | YES  |     | NULL    |       |
+| rodzaj   | enum('wiking','ptak','kobieta','syrena') | YES  |     | NULL    |       |
+| data_ur  | date                                     | YES  |     | NULL    |       |
+| wiek     | int unsigned                             | YES  |     | NULL    |       |
+| funkcja  | varchar(35)                              | YES  |     | NULL    |       |
+| lodz     | varchar(30)                              | YES  | MUL | NULL    |       |
+| pesel    | varchar(11)                              | NO   | PRI | NULL    |       |
++----------+------------------------------------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> selcr * from postac;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selcr * from postac' at line 1
+mysql> selct * from postac;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from postac' at line 1
+mysql> select * from postac;
++----------+----------+--------+------------+------+---------+------+-------------+
+| postacID | nazwa    | rodzaj | data_ur    | wiek | funkcja | lodz | pesel       |
++----------+----------+--------+------------+------+---------+------+-------------+
+|        1 | Bjorn    | NULL   | NULL       | NULL | kapitan | NULL | 12345678900 |
+|        2 | Drozd    | NULL   | NULL       | NULL | NULL    | FRAG | 12345678901 |
+|        3 | Tesciowa | NULL   | NULL       |   88 | NULL    | NULL | 12345678902 |
+|        4 | warwar   | wiking | 1955-05-05 |   30 | NULL    | GROM | 12345678903 |
+|        5 | Amber    | wiking | 1955-05-05 |   35 | NULL    | GROM | 12345678904 |
+|        8 | JOY BOY  | wiking | 1955-05-05 |   36 | NULL    | GROM | 12345678905 |
++----------+----------+--------+------------+------+---------+------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO postac (nazwa) VALUES ('Gertruda Nieszczera');
+ERROR 1364 (HY000): Field 'postacID' doesn't have a default value
+mysql> INSERT INTO postac (nazwa) VALUES ('Gertruda Nieszczera'),postacID = 9 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+mysql> INSERT INTO postac (nazwa) VALUES ('Gertruda Nieszczera'),AND postacID =
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+mysql> INSERT INTO postac (nazwa) VALUES ('Gertruda Nieszczera') AND postacID =
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+mysql> INSERT INTO postac (nazwa) VALUES (9,'Gertruda Nieszczera') ;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO postac (postacID,nazwa) VALUES (9,'Gertruda Nieszczera') ;
+ERROR 1364 (HY000): Field 'pesel' doesn't have a default value
+mysql> INSERT INTO postac (postacID,nazwa,pesel) VALUES (9,'Gertruda Nieszczera'
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from postac;
++----------+---------------------+--------+------------+------+---------+------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz |
++----------+---------------------+--------+------------+------+---------+------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | NULL |
+|        1 | Bjorn               | NULL   | NULL       | NULL | kapitan | NULL |
+|        2 | Drozd               | NULL   | NULL       | NULL | NULL    | FRAG |
+|        3 | Tesciowa            | NULL   | NULL       |   88 | NULL    | NULL |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | GROM |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | GROM |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM |
++----------+---------------------+--------+------------+------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql> desc statek;
++----------------+--------------------------------+------+-----+---------+------
+| Field          | Type                           | Null | Key | Default | Extra
++----------------+--------------------------------+------+-----+---------+------
+| nazwa_statku   | varchar(40)                    | NO   | PRI | NULL    |
+| rodzaj_statku  | enum('karli','sneki','drakar') | YES  |     | NULL    |
+| data_wadowania | date                           | YES  |     | NULL    |
+| max_ladownosc  | int unsigned                   | YES  |     | NULL    |
++----------------+--------------------------------+------+-----+---------+------
+4 rows in set (0.00 sec)
+
+mysql> UPDATE postac
+    -> SET lodz = 'FRAG'
+    -> WHERE postacID =1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from postac;
++----------+---------------------+--------+------------+------+---------+------+-------------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz | pesel       |
++----------+---------------------+--------+------------+------+---------+------+-------------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | NULL | 1234567890  |
+|        1 | Bjorn               | NULL   | NULL       | NULL | kapitan | FRAG | 12345678900 |
+|        2 | Drozd               | NULL   | NULL       | NULL | NULL    | FRAG | 12345678901 |
+|        3 | Tesciowa            | NULL   | NULL       |   88 | NULL    | NULL | 12345678902 |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | GROM | 12345678903 |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | GROM | 12345678904 |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM | 12345678905 |
++----------+---------------------+--------+------------+------+---------+------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE postac  SET lodz = 'FRAG' WHERE postacID =2;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> UPDATE postac  SET lodz = 'FRAG' WHERE postacID =3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from postac;
++----------+---------------------+--------+------------+------+---------+------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz |
++----------+---------------------+--------+------------+------+---------+------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | NULL |
+|        1 | Bjorn               | NULL   | NULL       | NULL | kapitan | FRAG |
+|        2 | Drozd               | NULL   | NULL       | NULL | NULL    | FRAG |
+|        3 | Tesciowa            | NULL   | NULL       |   88 | NULL    | FRAG |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | GROM |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | GROM |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM |
++----------+---------------------+--------+------------+------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE postac  SET wiek = '37' WHERE postacID =1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE postac  SET wiek = '27' WHERE postacID =2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE postac  SET data_ur = '1955-06-06' WHERE postacID =2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE postac  SET data_ur = '1955-06-07' WHERE postacID =1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from postac;
++----------+---------------------+--------+------------+------+---------+------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz |
++----------+---------------------+--------+------------+------+---------+------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | NULL |
+|        1 | Bjorn               | NULL   | 1955-06-07 |   37 | kapitan | FRAG |
+|        2 | Drozd               | NULL   | 1955-06-06 |   27 | NULL    | FRAG |
+|        3 | Tesciowa            | NULL   | NULL       |   88 | NULL    | FRAG |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | GROM |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | GROM |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM |
++----------+---------------------+--------+------------+------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE postac  SET data_ur = '1955-08-07' WHERE postacID =3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from postac;
++----------+---------------------+--------+------------+------+---------+------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz |
++----------+---------------------+--------+------------+------+---------+------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | NULL |
+|        1 | Bjorn               | NULL   | 1955-06-07 |   37 | kapitan | FRAG |
+|        2 | Drozd               | NULL   | 1955-06-06 |   27 | NULL    | FRAG |
+|        3 | Tesciowa            | NULL   | 1955-08-07 |   88 | NULL    | FRAG |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | GROM |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | GROM |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM |
++----------+---------------------+--------+------------+------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql>
+mysql> mysql> UPDATE postac  SET data_ur = '1955-08-07' WHERE postacID =3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+mysql> Query OK, 1 row affected (0.00 sec)
+    -> select * from statek;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+select * from statek' at line 1
+mysql> select * from statek;
++--------------+---------------+----------------+---------------+
+| nazwa_statku | rodzaj_statku | data_wadowania | max_ladownosc |
++--------------+---------------+----------------+---------------+
+| FRAG         | sneki         | NULL           |          NULL |
+| GROM         | karli         | NULL           |          NULL |
++--------------+---------------+----------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE statek  SET max_ladownosc  = '1500' WHERE nazwa_statku =FRAG;
+ERROR 1054 (42S22): Unknown column 'FRAG' in 'where clause'
+mysql> UPDATE statek  SET max_ladownosc  = '1500' WHERE rodzaj_statku =sneki;
+ERROR 1054 (42S22): Unknown column 'sneki' in 'where clause'
+mysql> UPDATE statek  SET max_ladownosc  = '1500' WHERE rodzaj_statku ='sneki';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE statek  SET max_ladownosc  = '1000' WHERE rodzaj_statku ='karli';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> mysql> UPDATE statek  SET max_ladownosc  = '1000' WHERE rodzaj_statku ='karli'; UPDATE statek  SET max_ladownosc  = '1500' WHERE rodzaj_statku ='sneki';^C
+mysql> UPDATE statek  SET max_ladownosc  = 'max_ladownosc *0,7'WHERE nazwa_statku='sneki';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE statek  SET max_ladownosc  = 'max_ladownosc *0,7'WHERE nazwa_statku='FRAG';
+ERROR 1366 (HY000): Incorrect integer value: 'max_ladownosc *0,7' for column 'max_ladownosc' at row 1
+mysql> UPDATE statek  SET max_ladownosc  = 'max_ladownosc *0,7'WHERE nazwa_statku='GROM';
+ERROR 1366 (HY000): Incorrect integer value: 'max_ladownosc *0,7' for column 'max_ladownosc' at row 1
+mysql> UPDATE statek  SET max_ladownosc  = max_ladownosc *0,7 WHERE nazwa_statku='GROM';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7 WHERE nazwa_statku='GROM'' at line 1
+mysql> UPDATE statek  SET max_ladownosc  = max_ladownosc *0,7 WHERE nazwa_statku='GROM';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7 WHERE nazwa_statku='GROM'' at line 1
+mysql> UPDATE statek  SET max_ladownosc  = max_ladownosc *0,7 WHERE nazwa_statku='GROM';mysql> UPDATE statek  SET max_ladownosc  = 'max_lado,7'WHERE nazwa_statk
+mysql> UPDATE statek  SET max_ladownosc  = max_ladownosc *0.7 WHERE nazwa_statku
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE statek  SET max_ladownosc  = max_ladownosc *0.7 WHERE nazwa_statku
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM WHERE nazwa LIKE '%A%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE nazwa LIKE '%A%'' at line 1
+mysql> SELECT * FROM postac  WHERE nazwa LIKE '%A%';
++----------+---------------------+--------+------------+------+---------+------+-------------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz | pesel       |
++----------+---------------------+--------+------------+------+---------+------+-------------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | NULL | 1234567890  |
+|        3 | Tesciowa            | NULL   | 1955-08-07 |   88 | NULL    | FRAG | 12345678902 |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | GROM | 12345678903 |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | GROM | 12345678904 |
++----------+---------------------+--------+------------+------+---------+------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE postac SET lodz='FRAG'  WHERE nazwa LIKE '%A%'
+    -> ^C
+mysql> UPDATE postac SET lodz='FRAG'  WHERE nazwa LIKE '%A%';
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 4  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM postac;
++----------+---------------------+--------+------------+------+---------+------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz |
++----------+---------------------+--------+------------+------+---------+------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | FRAG |
+|        1 | Bjorn               | NULL   | 1955-06-07 |   37 | kapitan | FRAG |
+|        2 | Drozd               | NULL   | 1955-06-06 |   27 | NULL    | FRAG |
+|        3 | Tesciowa            | NULL   | 1955-08-07 |   88 | NULL    | FRAG |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | FRAG |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | FRAG |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM |
++----------+---------------------+--------+------------+------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql> mysql> SELECT * FROM postac  WHERE wiek <=1000;
+ERROR 1146 (42S02): Table 'vaitsiukr.taFROM' doesn't exist
+mysql> SELECT * FROM taFROM postac  WHERE wiek <= 1000;
+ERROR 1146 (42S02): Table 'vaitsiukr.taFROM' doesn't exist
+mysql> INSERT INTO postac(postacID,nazwa,pesel) VALUES(10,'loko',01234567899);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM  postac  WHERE wiek <= 1000;
++----------+----------+--------+------------+------+---------+------+-------------+
+| postacID | nazwa    | rodzaj | data_ur    | wiek | funkcja | lodz | pesel       |
++----------+----------+--------+------------+------+---------+------+-------------+
+|        1 | Bjorn    | NULL   | 1955-06-07 |   37 | kapitan | FRAG | 12345678900 |
+|        2 | Drozd    | NULL   | 1955-06-06 |   27 | NULL    | FRAG | 12345678901 |
+|        3 | Tesciowa | NULL   | 1955-08-07 |   88 | NULL    | FRAG | 12345678902 |
+|        4 | warwar   | wiking | 1955-05-05 |   30 | NULL    | FRAG | 12345678903 |
+|        5 | Amber    | wiking | 1955-05-05 |   35 | NULL    | FRAG | 12345678904 |
+|        8 | JOY BOY  | wiking | 1955-05-05 |   36 | NULL    | GROM | 12345678905 |
++----------+----------+--------+------------+------+---------+------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM  postac;
++----------+---------------------+--------+------------+------+---------+------+-------------+
+| postacID | nazwa               | rodzaj | data_ur    | wiek | funkcja | lodz | pesel       |
++----------+---------------------+--------+------------+------+---------+------+-------------+
+|        9 | Gertruda Nieszczera | NULL   | NULL       | NULL | NULL    | FRAG | 1234567890  |
+|        1 | Bjorn               | NULL   | 1955-06-07 |   37 | kapitan | FRAG | 12345678900 |
+|        2 | Drozd               | NULL   | 1955-06-06 |   27 | NULL    | FRAG | 12345678901 |
+|        3 | Tesciowa            | NULL   | 1955-08-07 |   88 | NULL    | FRAG | 12345678902 |
+|        4 | warwar              | wiking | 1955-05-05 |   30 | NULL    | FRAG | 12345678903 |
+|        5 | Amber               | wiking | 1955-05-05 |   35 | NULL    | FRAG | 12345678904 |
+|        8 | JOY BOY             | wiking | 1955-05-05 |   36 | NULL    | GROM | 12345678905 |
+|       10 | loko                | NULL   | NULL       | NULL | NULL    | NULL | 1234567899  |
++----------+---------------------+--------+------------+------+---------+------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> UPDATE postac
+    -> SET rodzaj='wez'
+    -> WHERE postacID =10;
+ERROR 1265 (01000): Data truncated for column 'rodzaj' at row 8
+mysql> INSERT INTO postac(rodzal) VALUES('wez');
+ERROR 1054 (42S22): Unknown column 'rodzal' in 'field list'
+mysql> INSERT INTO postac(rodzaj) VALUES('wez');
+ERROR 1265 (01000): Data truncated for column 'rodzaj' at row 1
+mysql> INSERT INTO postac(rodzaj) VALUES('wez') WHERE postacID=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE postacID=10' at line 1
+mysql> UPDATE postac  SET rodzaj=wez WHERE postacID =10;
+ERROR 1054 (42S22): Unknown column 'wez' in 'field list'
+mysql> UPDATE postac  SET rodzaj='wez' WHERE postacID =10;
+ERROR 1265 (01000): Data truncated for column 'rodzaj' at row 8
