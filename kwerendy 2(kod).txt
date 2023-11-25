@@ -1,0 +1,60 @@
+ kwerendy 2
+zadanie 1
+a)select * from postac where rodzaj ='wiking' AND nazwa !='Bjorn' ORDER BY                                                                                                              wiek  DESC ;
+select * from postac where rodzaj ='wiking' AND nazwa !='Bjorn' ORDER BY
+wiek  DESC limit 2;
+DELETE from postac where rodzaj ='wiking' AND nazwa !='Bjorn' ORDER BY wi
+ek  DESC limit 2;
+b)SHOW CREATE TABLE postac;
+SHOW CREATE TABLE walizka;
+ALTER TABLE walizka
+     DROP FOREIGN KEY walizka_ibfk_1;
+SHOW CREATE TABLE  izba;
+ ALTER TABLE izba DROP FOREIGN KEY izba_ibfk_1;
+SHOW CREATE TABLE  przetwory;
+ALTER TABLE przetwory  DROP FOREIGN KEY przetwory_ibkf_1;
+ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_2;
+
+ALTER TABLE postac DROP PRIMARY KEY, MODIFY postacID INT NOT NULL;
+zadanie 2
+a)
+ALTER TABLE postac ADD COLUMN pesel varchar(11);
+update postac set pesel ='12345678900' where postacID =1;
+update postac set pesel ='12345678901' where postacID =2;
+update postac set pesel ='12345678902' where postacID =3;
+update postac set pesel ='12345678903' where postacID =4;
+update postac set pesel ='12345678904' where postacID =5;
+update postac set pesel ='12345678905' where postacID =8;
+ALTER TABLE postac MODIFY COLUMN pesel VARCHAR(11) NOT NULL, ADD PRIMARY KEY(pesel) ;
+ INSERT INTO postac (postacID,nazwa,pesel) VALUES (9,'Gertruda Nieszczera'1234567890);
+
+b)ALTER TABLE postac MODIFY  rodzaj enum('wiking','ptak','kobieta','syrena')
+zadanie 3
+a)UPDATE postac SET lodz='FRAG'  WHERE nazwa LIKE '%A%';
+b)UPDATE statek  SET max_ladownosc  = max_ladownosc *0.7 WHERE nazwa_statku='GROM';
+ UPDATE statek  SET max_ladownosc  = max_ladownosc *0.7 WHERE nazwa_statku='FRAG';
+c)SELECT * FROM  postac  WHERE wiek <= 1000;
+zadanie 4
+a)INSERT INTO postac(postacID,nazwa,pesel) VALUES(10,'loko',01234567899);
+ ALTER TABLE postac MODIFY  rodzaj enum('wiking','ptak','kobieta','syrena','waz' );
+ update postac set rodzaj ='waz' where nazwa='loko';
+b) CREATE TABLE Marynarz (id_marynarzu INT AUTO_INCREMENT , nazwa VARCHAR(40), rodzaj ENUM('wiking', 'ptak', 'kobieta','syrena','waz'), data_ur DATE, wiek INT UNSIGNED ,funkcja varchar(35),lodz varchar(30) ,pesel varchar(11) NOT NULL, PRIMARY KEY (pesel),
+   FOREIGN KEY (id_marynarzu) REFERENCES postac (pesel);
+ );
+zadanie 5
+a) UPDATE postac SET lodz = 'ziemia' WHERE lodz = 'FRAG';
+UPDATE postac SET lodz = 'ziemia' WHERE lodz = 'GROM';
+b) DELETE from postac where nazwa ='warwar';
+c) DELETE from statek where rodzaj_statku ='karli';
+ DELETE from statek where rodzaj_statku ='sneki';
+d) DROP TABLE statek;
+e)CREATE TABLE zwierz( 
+id_zwierza INT AUTO_INCREMENT PRIMARY KEY,
+ nazwa varchar(35), 
+wiek int UNSIGNED);
+f)INSERT INTO zwierz(nazwa)  VALUES('Drozd') ;
+INSERT INTO zwierz(nazwa)  VALUES('waz') ;
+INSERT INTO zwierz(nazwa)  VALUES('Gertruda Nieszczera'); 
+
+
+
