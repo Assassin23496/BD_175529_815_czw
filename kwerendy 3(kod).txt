@@ -1,0 +1,29 @@
+kwerendy 3
+zadanie 1
+a)
+CREATE TABLE kreatura LIKE wikingowie.kreatura;
+CREATE TABLE zasob LIKE wikingowie.zasob;
+CREATE TABLE ekwipunek LIKE wikingowie.ekwipunek;
+b)
+INSERT INTO zasob SELECT * FROM wikingowie.zasob;
+INSERT INTO kreatura SELECT * FROM wikingowie.kreatura ;
+INSERT INTO ekwipunek SELECT * FROM wikingowie.ekwipunek ;
+c)SELECT * FROM zasob where rodzaj='jedzenie';
+d)SELECT idZasobu,ilosc FROM ekwipunek where idKreatury=1 OR 3 OR 5;
+zadanie 2
+a)SELECT * FROM kreatura where rodzaj !='wiedzma' AND udzwig >=50;
+b)SELECT * FROM zasob where waga BETWEEN 2 AND 5 ;
+c)SELECT * FROM kreatura  where nazwa LIKE '%or%'AND udzwig BETWEEN 30 AND
+70 ;
+zadanie 3
+a)SELECT * FROM zasob where dataPozyskania  LIKE '_____07%'OR dataPozyskania LIKE '_____08%';
+b) SELECT * FROM zasob where rodzaj!='NULL' ORDER BY waga ASC ;
+c) SELECT * FROM kreatura  ORDER BY dataUR  DESC limit 5 ;
+zadanie 4
+a)SELECT DISTINCT rodzaj  FROM zasob;
+b)SELECT CONCAT (nazwa , rodzaj)AS nazwa_rodzaj  FROM kreatura  where rodzaj LIKE'wi%';
+c)select(waga*ilosc) AS calkowita_waga FROM zasob WHERE YEAR(dataPozyskania) BETWEEN 2000 AND 2007;
+zadanie 5
+a) select waga*0.7 AS wlasciwa_waga_jedzenie,waga*0.3 AS waga_otpadkow  FROM zasob ;
+b)SELECT* FROM zasob where rodzaj is NULL;
+c) select DISTINCT rodzaj FROM zasob where nazwa LIKE'Ba%' or nazwa like'%os' ORDER BY rodzaj ASC;
