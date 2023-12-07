@@ -1,0 +1,14 @@
+zadanie1
+1.SELECT AVG(waga) FROM kreatura WHERE rodzaj ='wiking';
+2.SELECT AVG(waga) COUNT(idKreatury) FROM kreatura where waga IS NOT NULL GROUP BY rodzaj;
+3.SELECT rodzaj,AVG(2023-YEAR(dataUr)) FROM  kreatura where dataUr IS NOT NULL GROUP BY rodzaj;
+zadanie2
+1.SELECT SUM(waga) FROM zasob GROUP BY rodzaj;
+2.SELECT  nazwa AVG(waga) FROM zasob GROUP BY nazwa HAVING SUM(ilosc)>=4 AND  SUM(waga)>10;
+3.SELECT rodzaj ,COUNT(nazwa) FROM zasob GROUP BY rodzaj HAVING COUNT(ilosc)>1;
+zadanie3
+1.SELECT kreatura.nazwa, ekwipunek.ilosc FROM kreatura JOIN ekwipunek ON kreatura.idKreatury=ekwipunek.idEkwipunku;
+2.SELECT kreatura.nazwa, zasob.nazwa FROM kreatura JOIN ekwipunek
+ ON kreatura.idKreatury=ekwipunek.idKreatury JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu;
+3.SELECT kreatura.nazwa, ekwipunek.idEkwipunku FROM kreatura LEFT JOIN ekwipunek
+ ON kreatura.idKreatury=ekwipunek.idKreatury LEFT JOIN zasob ON zasob.idZasobu = ekwipunek.idZasobu WHERE kreatura.udzwig IS NULL;(nie)
