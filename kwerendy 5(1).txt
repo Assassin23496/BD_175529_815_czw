@@ -1,0 +1,625 @@
+login as: vaitsiukr
+vaitsiukr@213.184.8.36's password:
+Linux bad2 4.10.17-1-pve #1 SMP PVE 4.10.17-16 (Tue, 11 Jul 2017 09:55:44 +0200)                                                                                                                                                              x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Thu Dec 14 08:30:28 2023 from 213.184.8.163
+vaitsiukr@bad2:~$ mysql -u vaitsiukr -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7951
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use wikingowie
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>   slect*from wyprawa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that                                                                                                                                                              corresponds to your MySQL server version for the right syntax to use near 'slect                                                                                                                                                             *from wyprawa' at line 1
+mysql>   select*from wyprawa;
++------------+-----------------------+------------------+------------------+----                                                                                                                                                             -------+
+| id_wyprawy | nazwa                 | data_rozpoczecia | data_zakonczenia | kie                                                                                                                                                             rownik |
++------------+-----------------------+------------------+------------------+----                                                                                                                                                             -------+
+|          1 | Poszukiwanie ziecia   | 1700-08-02       | 1700-08-04       |                                                                                                                                                                     14 |
+|          2 | Polowanie na tesciowa | 1700-08-04       | 1700-08-06       |                                                                                                                                                                      1 |
+|          3 | Nakarm kanibala       | 1700-08-02       | 1700-08-04       |                                                                                                                                                                     16 |
+|          4 | nikt nie idzie        | 2020-01-01       | 2020-01-02       |                                                                                                                                                                   NULL |
++------------+-----------------------+------------------+------------------+----                                                                                                                                                             -------+
+4 rows in set (0.00 sec)
+
+mysql>   select*from uczestnicy;
++------------+---------------+
+| id_wyprawy | id_uczestnika |
++------------+---------------+
+|          2 |             1 |
+|          3 |             1 |
+|          3 |             3 |
+|          2 |             4 |
+|          3 |             6 |
+|          2 |             7 |
+|          3 |             8 |
+|          1 |             9 |
+|          2 |            10 |
+|          2 |            11 |
+|          3 |            11 |
+|          2 |            13 |
+|          1 |            14 |
+|          1 |            15 |
+|          2 |            16 |
+|          3 |            16 |
+|          1 |            17 |
+|          1 |            18 |
++------------+---------------+
+18 rows in set (0.01 sec)
+
+mysql>   select*from etapy_wyprawy;
++---------+-----------+--------+-----------+------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ---------------------------------------+
+| idEtapu | idWyprawy | sektor | kolejnosc | dziennik                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
++---------+-----------+--------+-----------+------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ---------------------------------------+
+|       1 |         1 |      6 |         1 | Wyruszam na poszukiwanie tego smier                                                                                                                                                             dzcego szczura ladowego!                                                                                                                                                                                                                                                            |
+|       2 |         1 |      5 |         2 | Wulkan to dobre miejsce na uzupelnn                                                                                                                                                             ienie zapasow ognia tesciowej :)                                                                                                                                                                                                                                                    |
+|       3 |         1 |      1 |         3 | Mimo usilnych prob nawiazania przyj                                                                                                                                                             aznych stosunkow z kanibalami, zaden z nich nie odwazyl sie ze mna porozmawiac                                                                                                                                                                                                      |
+|       4 |         1 |      4 |         4 | Aaaaaa psik... psia kosc!                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|       5 |         1 |      7 |         5 | Ach, wyglada na to, ze niedawno tut                                                                                                                                                             aj byl. Zaczaje sie w pobliskich zaroslach...                                                                                                                                                                                                                                       |
+|       6 |         2 |      8 |         1 | Coco jumbo i do przodu. Huzia na te                                                                                                                                                             sciowa!                                                                                                                                                                                                                                                                             |
+|       7 |         2 |      7 |         2 | Po drodze zgarnelismy dziadka, ktor                                                                                                                                                             y zostal naszym przewodnikiem.                                                                                                                                                                                                                                                      |
+|       8 |         2 |      5 |         3 | Uff jak goraco... Jakbym czul oddec                                                                                                                                                             h tesciowej na plecach...                                                                                                                                                                                                                                                           |
+|       9 |         2 |      9 |         4 | Widzieliscie kiedys ktorakolwiek cz                                                                                                                                                             esc filmu "Szczeki" ?                                                                                                                                                                                                                                                               |
+|      10 |         2 |      6 |         5 | Jest niemal pewne, ze ta stara wied                                                                                                                                                             zma niedawno tutaj byla. Zaczaimy sie i poczekamy...                                                                                                                                                                                                                                |
+|      11 |         3 |      7 |         1 | Wyspa wydaje mi sie podobna do tej                                                                                                                                                              z "Robinsona Cruzo'e". Moze lepiej przygotowac sie na ewentualne spotkanie z kan                                                                                                                                                             ibalami. Tesciowa nada sie znakomicie! |
+|      12 |         3 |      6 |         2 | Ech, nie ma jej tutaj. Musimy poszu                                                                                                                                                             kac innej ofiary dla tych ludojadow.                                                                                                                                                                                                                                                |
+|      13 |         3 |      9 |         3 | Duzy rekin nie powinien byc zly. Ty                                                                                                                                                             lko czego tu uzyc jako przynety... Astrid, podejdz no na chwilke.                                                                                                                                                                                                                   |
+|      14 |         3 |      5 |         4 | Moze by tego rekina najpierw usmazy                                                                                                                                                             c w wulkanie ?                                                                                                                                                                                                                                                                      |
+|      15 |         3 |      1 |         5 | Lepiej nie czekac, az sami przyjda.                                                                                                                                                              Chlopaki, dawajcie te "rybke"!                                                                                                                                                                                                                                                     |
++---------+-----------+--------+-----------+------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ---------------------------------------+
+15 rows in set (0.00 sec)
+
+mysql> mysql>   select*from etapy_wyprawy;
++---------+-----------+--------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| idEtapu | idWyprawy | sektor | kolejnosc | dziennik                                                                                                                                                  |
++---------+-----------+--------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       1 |         1 |      6 |         1 | Wyruszam na poszukiwanie tego smierdzcego szczura ladowego!                                                                                               |
+|       2 |         1 |      5 |         2 | Wulkan to dobre miejsce na uzupelnnienie zapasow ognia tesciowej :)                                                                                       |
+|       3 |         1 |      1 |         3 | Mimo usilnych prob nawiazania przyjaznych stosunkow z kanibalami, zaden z nich nie odwazyl sie ze mna porozmawiac                                         |
+|       4 |         1 |      4 |         4 | Aaaaaa psik... psia kosc!                                                                                                                                 |
+|       5 |         1 |      7 |         5 | Ach, wyglada na to, ze niedawno tutaj byl. Zaczaje sie w pobliskich zaroslach...                                                                          |
+|       6 |         2 |      8 |         1 | Coco jumbo i do przodu. Huzia na tesciowa!                                                                                                                |
+|       7 |         2 |      7 |         2 | Po drodze zgarnelismy dziadka, ktory zostal naszym przewodnikiem.                                                                                         |
+|       8 |         2 |      5 |         3 | Uff jak goraco... Jakbym czul oddech tesciowej na plecach...                                                                                              |
+|       9 |         2 |      9 |         4 | Widzieliscie kiedys ktorakolwiek czesc filmu "Szczeki" ?                                                                                                  |
+|      10 |         2 |      6 |         5 | Jest niemal pewne, ze ta stara wiedzma niedawno tutaj byla. Zaczaimy sie i poczekamy...                                                                   |
+|      11 |         3 |      7 |         1 | Wyspa wydaje mi sie podobna do tej z "Robinsona Cruzo'e". Moze lepiej przygotowac sie na ewentualne spotkanie z kanibalami. Tesciowa nada sie znakomicie! |
+|      12 |         3 |      6 |         2 | Ech, nie ma jej tutaj. Musimy poszukac innej ofiary dla tych ludojadow.                                                                                   |
+|      13 |         3 |      9 |         3 | Duzy rekin nie powinien byc zly. Tylko czego tu uzyc jako przynety... Astrid, podejdz no na chwilke.                                                      |
+|      14 |         3 |      5 |         4 | Moze by tego rekina najpierw usmazyc w wulkanie ?                                                                                                         |
+|      15 |         3 |      1 |         5 | Lepiej nie czekac, az sami przyjda. Chlopaki, dawajcie te "rybke"!                                                                                        |
++---------+-----------+--------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+15 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> ;
+ERROR:
+No query specified
+
+mysql>
+mysql> ;
+ERROR:
+No query specified
+
+mysql> select k.nazwa, k.idKreatury FROM kreatura k LEFT JOIN uczestnicy u ON  k                                                                                                                                                             .idKreatury=u.id_uczestnika  where u.id_uczestnika IS NULL;
++-------------+------------+
+| nazwa       | idKreatury |
++-------------+------------+
+| Brutal      |          2 |
+| Defgard     |          5 |
+| Ara         |         12 |
+| Gollum      |         19 |
+| Trollik     |         20 |
+| Silacz      |         21 |
+| Twoja Stara |         34 |
+| Babajaga    |        100 |
++-------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> ;
+ERROR:
+No query specified
+
+mysql> select*from wyprawa;
++------------+-----------------------+------------------+------------------+----                                                                                                                                                             -------+
+| id_wyprawy | nazwa                 | data_rozpoczecia | data_zakonczenia | kie                                                                                                                                                             rownik |
++------------+-----------------------+------------------+------------------+----                                                                                                                                                             -------+
+|          1 | Poszukiwanie ziecia   | 1700-08-02       | 1700-08-04       |                                                                                                                                                                     14 |
+|          2 | Polowanie na tesciowa | 1700-08-04       | 1700-08-06       |                                                                                                                                                                      1 |
+|          3 | Nakarm kanibala       | 1700-08-02       | 1700-08-04       |                                                                                                                                                                     16 |
+|          4 | nikt nie idzie        | 2020-01-01       | 2020-01-02       |                                                                                                                                                                   NULL |
++------------+-----------------------+------------------+------------------+----                                                                                                                                                             -------+
+4 rows in set (0.00 sec)
+
+mysql> select w.nazwa  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.                                                                                                                                                             id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury;
++-----------------------+
+| nazwa                 |
++-----------------------+
+| Poszukiwanie ziecia   |
+| Poszukiwanie ziecia   |
+| Poszukiwanie ziecia   |
+| Poszukiwanie ziecia   |
+| Poszukiwanie ziecia   |
+| Polowanie na tesciowa |
+| Polowanie na tesciowa |
+| Polowanie na tesciowa |
+| Polowanie na tesciowa |
+| Polowanie na tesciowa |
+| Polowanie na tesciowa |
+| Polowanie na tesciowa |
+| Nakarm kanibala       |
+| Nakarm kanibala       |
+| Nakarm kanibala       |
+| Nakarm kanibala       |
+| Nakarm kanibala       |
+| Nakarm kanibala       |
+| nikt nie idzie        |
++-----------------------+
+19 rows in set (0.00 sec)
+
+mysql> select w.nazwa,k.idKreatury  from wyprawa w LEFT JOIN uczestnicy u  ON w.                                                                                                                                                             id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury;
++-----------------------+------------+
+| nazwa                 | idKreatury |
++-----------------------+------------+
+| Poszukiwanie ziecia   |          9 |
+| Poszukiwanie ziecia   |         14 |
+| Poszukiwanie ziecia   |         15 |
+| Poszukiwanie ziecia   |         17 |
+| Poszukiwanie ziecia   |         18 |
+| Polowanie na tesciowa |          1 |
+| Polowanie na tesciowa |          4 |
+| Polowanie na tesciowa |          7 |
+| Polowanie na tesciowa |         10 |
+| Polowanie na tesciowa |         11 |
+| Polowanie na tesciowa |         13 |
+| Polowanie na tesciowa |         16 |
+| Nakarm kanibala       |          1 |
+| Nakarm kanibala       |          3 |
+| Nakarm kanibala       |          6 |
+| Nakarm kanibala       |          8 |
+| Nakarm kanibala       |         11 |
+| Nakarm kanibala       |         16 |
+| nikt nie idzie        |       NULL |
++-----------------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> select w.nazwa,k.nazwa  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wy                                                                                                                                                             prawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury;
++-----------------------+----------------------------+
+| nazwa                 | nazwa                      |
++-----------------------+----------------------------+
+| Poszukiwanie ziecia   | Nemo                       |
+| Poszukiwanie ziecia   | Tesciowa                   |
+| Poszukiwanie ziecia   | Tiki                       |
+| Poszukiwanie ziecia   | sztuczna szczeka tesciowej |
+| Poszukiwanie ziecia   | Tesciowa dziadka           |
+| Polowanie na tesciowa | Bjorn                      |
+| Polowanie na tesciowa | Birgun                     |
+| Polowanie na tesciowa | Ibra                       |
+| Polowanie na tesciowa | Loko                       |
+| Polowanie na tesciowa | Drozd                      |
+| Polowanie na tesciowa | Szczeki                    |
+| Polowanie na tesciowa | Dziadek                    |
+| Nakarm kanibala       | Bjorn                      |
+| Nakarm kanibala       | Khorad                     |
+| Nakarm kanibala       | Astrid                     |
+| Nakarm kanibala       | Bjolkolur                  |
+| Nakarm kanibala       | Drozd                      |
+| Nakarm kanibala       | Dziadek                    |
+| nikt nie idzie        | NULL                       |
++-----------------------+----------------------------+
+19 rows in set (0.00 sec)
+
+mysql> select GROUP_CONCAT( w.nazwa,k.nazwa)  from wyprawa w LEFT JOIN uczestnic
+y u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKr
+eatury;
++-------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ------+
+| GROUP_CONCAT( w.nazwa,k.nazwa)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++-------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ------+
+| Poszukiwanie zieciaNemo,Poszukiwanie zieciaTesciowa,Poszukiwanie zieciaTiki,Po                                                                                                                                                             szukiwanie zieciasztuczna szczeka tesciowej,Poszukiwanie zieciaTesciowa dziadka,                                                                                                                                                             Polowanie na tesciowaBjorn,Polowanie na tesciowaBirgun,Polowanie na tesciowaIbra                                                                                                                                                             ,Polowanie na tesciowaLoko,Polowanie na tesciowaDrozd,Polowanie na tesciowaSzcze                                                                                                                                                             ki,Polowanie na tesciowaDziadek,Nakarm kanibalaBjorn,Nakarm kanibalaKhorad,Nakar                                                                                                                                                             m kanibalaAstrid,Nakarm kanibalaBjolkolur,Nakarm kanibalaDrozd,Nakarm kanibalaDz                                                                                                                                                             iadek |
++-------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ------+
+1 row in set (0.00 sec)
+
+mysql> mysql> select GROUP_CONCAT( w.nazwa,k.nazwa)  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury;
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| GROUP_CONCAT( w.nazwa,k.nazwa)                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Poszukiwanie zieciaNemo,Poszukiwanie zieciaTesciowa,Poszukiwanie zieciaTiki,Poszukiwanie zieciasztuczna szczeka tesciowej,Poszukiwanie zieciaTesciowa dziadka,Polowanie na tesciowaBjorn,Polowanie na tesciowaBirgun,Polowanie na tesciowaIbra,Polowanie na tesciowaLoko,Polowanie na tesciowaDrozd,Polowanie na tesciowaSzczeki,Polowanie na tesciowaDziadek,Nakarm kanibalaBjorn,Nakarm kanibalaKhorad,Nakarm kanibalaAstrid,Nakarm kanibalaBjolkolur,Nakarm kanibalaDrozd,Nakarm kanibalaDziadek |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select GROUP_CONCAT( w.nazwa, k.nazwa)  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury;
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| GROUP_CONCAT( w.nazwa, k.nazwa)                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Poszukiwanie zieciaNemo,Poszukiwanie zieciaTesciowa,Poszukiwanie zieciaTiki,Poszukiwanie zieciasztuczna szczeka tesciowej,Poszukiwanie zieciaTesciowa dziadka,Polowanie na tesciowaBjorn,Polowanie na tesciowaBirgun,Polowanie na tesciowaIbra,Polowanie na tesciowaLoko,Polowanie na tesciowaDrozd,Polowanie na tesciowaSzczeki,Polowanie na tesciowaDziadek,Nakarm kanibalaBjorn,Nakarm kanibalaKhorad,Nakarm kanibalaAstrid,Nakarm kanibalaBjolkolur,Nakarm kanibalaDrozd,Nakarm kanibalaDziadek |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select GROUP_CONCAT( w.nazwa, k.nazwa)  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury GROUP BY w.nazwa;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| GROUP_CONCAT( w.nazwa, k.nazwa)                                                                                                                                                                 |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Nakarm kanibalaBjorn,Nakarm kanibalaKhorad,Nakarm kanibalaAstrid,Nakarm kanibalaBjolkolur,Nakarm kanibalaDrozd,Nakarm kanibalaDziadek                                                           |
+| NULL                                                                                                                                                                                            |
+| Polowanie na tesciowaBjorn,Polowanie na tesciowaBirgun,Polowanie na tesciowaIbra,Polowanie na tesciowaLoko,Polowanie na tesciowaDrozd,Polowanie na tesciowaSzczeki,Polowanie na tesciowaDziadek |
+| Poszukiwanie zieciaNemo,Poszukiwanie zieciaTesciowa,Poszukiwanie zieciaTiki,Poszukiwanie zieciasztuczna szczeka tesciowej,Poszukiwanie zieciaTesciowa dziadka                                   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select GROUP_CONCAT( w.nazwa, k.nazwa) AS poprawka  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury GROUP BY w.nazwa;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| poprawka                                                                                                                                                                                        |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Nakarm kanibalaBjorn,Nakarm kanibalaKhorad,Nakarm kanibalaAstrid,Nakarm kanibalaBjolkolur,Nakarm kanibalaDrozd,Nakarm kanibalaDziadek                                                           |
+| NULL                                                                                                                                                                                            |
+| Polowanie na tesciowaBjorn,Polowanie na tesciowaBirgun,Polowanie na tesciowaIbra,Polowanie na tesciowaLoko,Polowanie na tesciowaDrozd,Polowanie na tesciowaSzczeki,Polowanie na tesciowaDziadek |
+| Poszukiwanie zieciaNemo,Poszukiwanie zieciaTesciowa,Poszukiwanie zieciaTiki,Poszukiwanie zieciasztuczna szczeka tesciowej,Poszukiwanie zieciaTesciowa dziadka                                   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+4 rows in set (0.01 sec)
+
+mysql> select GROUP_CONCAT( w.nazwa, k.nazwa) AS poprawka  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury GROUP BY k.nazwa;
++-----------------------------------------------------+
+| poprawka                                            |
++-----------------------------------------------------+
+| NULL                                                |
+| Nakarm kanibalaAstrid                               |
+| Polowanie na tesciowaBirgun                         |
+| Nakarm kanibalaBjolkolur                            |
+| Polowanie na tesciowaBjorn,Nakarm kanibalaBjorn     |
+| Polowanie na tesciowaDrozd,Nakarm kanibalaDrozd     |
+| Polowanie na tesciowaDziadek,Nakarm kanibalaDziadek |
+| Polowanie na tesciowaIbra                           |
+| Nakarm kanibalaKhorad                               |
+| Polowanie na tesciowaLoko                           |
+| Poszukiwanie zieciaNemo                             |
+| Polowanie na tesciowaSzczeki                        |
+| Poszukiwanie zieciasztuczna szczeka tesciowej       |
+| Poszukiwanie zieciaTesciowa                         |
+| Poszukiwanie zieciaTesciowa dziadka                 |
+| Poszukiwanie zieciaTiki                             |
++-----------------------------------------------------+
+16 rows in set (0.00 sec)
+
+mysql> select GROUP_CONCAT( w.nazwa, k.nazwa) AS poprawka  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury GROUP BY w.nazwa;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| poprawka                                                                                                                                                                                        |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Nakarm kanibalaBjorn,Nakarm kanibalaKhorad,Nakarm kanibalaAstrid,Nakarm kanibalaBjolkolur,Nakarm kanibalaDrozd,Nakarm kanibalaDziadek                                                           |
+| NULL                                                                                                                                                                                            |
+| Polowanie na tesciowaBjorn,Polowanie na tesciowaBirgun,Polowanie na tesciowaIbra,Polowanie na tesciowaLoko,Polowanie na tesciowaDrozd,Polowanie na tesciowaSzczeki,Polowanie na tesciowaDziadek |
+| Poszukiwanie zieciaNemo,Poszukiwanie zieciaTesciowa,Poszukiwanie zieciaTiki,Poszukiwanie zieciasztuczna szczeka tesciowej,Poszukiwanie zieciaTesciowa dziadka                                   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select w.nazwa,  GROUP_CONCAT(  k.nazwa) AS poprawka  from wyprawa w LEFT JOIN uczestnicy u  ON w.id_wyprawy=u.id_wyprawy LEFT JOIN kreatura k ON u.id_uczestnika=k.idKreatury GROUP BY w.nazwa;
++-----------------------+----------------------------------------------------------------+
+| nazwa                 | poprawka                                                       |
++-----------------------+----------------------------------------------------------------+
+| Nakarm kanibala       | Bjorn,Khorad,Astrid,Bjolkolur,Drozd,Dziadek                    |
+| nikt nie idzie        | NULL                                                           |
+| Polowanie na tesciowa | Bjorn,Birgun,Ibra,Loko,Drozd,Szczeki,Dziadek                   |
+| Poszukiwanie ziecia   | Nemo,Tesciowa,Tiki,sztuczna szczeka tesciowej,Tesciowa dziadka |
++-----------------------+----------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> mysql> ; FROM
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that                                                                                                                                                              corresponds to your MySQL server version for the right syntax to use near '' at                                                                                                                                                              line 1
+    -> select w.nazwa,s.nazwa FROM wyprawa w LEFT JOIN etapy_wyprawy e ON ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that                                                                                                                                                              corresponds to your MySQL server version for the right syntax to use near 'FROM
+select w.nazwa,s.nazwa FROM wyprawa w LEFT JOIN etapy_wyprawy e ON' at line 1
+mysql> select*from uczestnicy;
++------------+---------------+
+| id_wyprawy | id_uczestnika |
++------------+---------------+
+|          2 |             1 |
+|          3 |             1 |
+|          3 |             3 |
+|          2 |             4 |
+|          3 |             6 |
+|          2 |             7 |
+|          3 |             8 |
+|          1 |             9 |
+|          2 |            10 |
+|          2 |            11 |
+|          3 |            11 |
+|          2 |            13 |
+|          1 |            14 |
+|          1 |            15 |
+|          2 |            16 |
+|          3 |            16 |
+|          1 |            17 |
+|          1 |            18 |
++------------+---------------+
+18 rows in set (0.00 sec)
+
+mysql> select*from etapy_wyprawy;
++---------+-----------+--------+-----------+------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ---------------------------------------+
+| idEtapu | idWyprawy | sektor | kolejnosc | dziennik                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
++---------+-----------+--------+-----------+------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ---------------------------------------+
+|       1 |         1 |      6 |         1 | Wyruszam na poszukiwanie tego smier                                                                                                                                                             dzcego szczura ladowego!                                                                                                                                                                                                                                                            |
+|       2 |         1 |      5 |         2 | Wulkan to dobre miejsce na uzupelnn                                                                                                                                                             ienie zapasow ognia tesciowej :)                                                                                                                                                                                                                                                    |
+|       3 |         1 |      1 |         3 | Mimo usilnych prob nawiazania przyj                                                                                                                                                             aznych stosunkow z kanibalami, zaden z nich nie odwazyl sie ze mna porozmawiac                                                                                                                                                                                                      |
+|       4 |         1 |      4 |         4 | Aaaaaa psik... psia kosc!                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|       5 |         1 |      7 |         5 | Ach, wyglada na to, ze niedawno tut                                                                                                                                                             aj byl. Zaczaje sie w pobliskich zaroslach...                                                                                                                                                                                                                                       |
+|       6 |         2 |      8 |         1 | Coco jumbo i do przodu. Huzia na te                                                                                                                                                             sciowa!                                                                                                                                                                                                                                                                             |
+|       7 |         2 |      7 |         2 | Po drodze zgarnelismy dziadka, ktor                                                                                                                                                             y zostal naszym przewodnikiem.                                                                                                                                                                                                                                                      |
+|       8 |         2 |      5 |         3 | Uff jak goraco... Jakbym czul oddec                                                                                                                                                             h tesciowej na plecach...                                                                                                                                                                                                                                                           |
+|       9 |         2 |      9 |         4 | Widzieliscie kiedys ktorakolwiek cz                                                                                                                                                             esc filmu "Szczeki" ?                                                                                                                                                                                                                                                               |
+|      10 |         2 |      6 |         5 | Jest niemal pewne, ze ta stara wied                                                                                                                                                             zma niedawno tutaj byla. Zaczaimy sie i poczekamy...                                                                                                                                                                                                                                |
+|      11 |         3 |      7 |         1 | Wyspa wydaje mi sie podobna do tej                                                                                                                                                              z "Robinsona Cruzo'e". Moze lepiej przygotowac sie na ewentualne spotkanie z kan                                                                                                                                                             ibalami. Tesciowa nada sie znakomicie! |
+|      12 |         3 |      6 |         2 | Ech, nie ma jej tutaj. Musimy poszu                                                                                                                                                             kac innej ofiary dla tych ludojadow.                                                                                                                                                                                                                                                |
+|      13 |         3 |      9 |         3 | Duzy rekin nie powinien byc zly. Ty                                                                                                                                                             lko czego tu uzyc jako przynety... Astrid, podejdz no na chwilke.                                                                                                                                                                                                                   |
+|      14 |         3 |      5 |         4 | Moze by tego rekina najpierw usmazy                                                                                                                                                             c w wulkanie ?                                                                                                                                                                                                                                                                      |
+|      15 |         3 |      1 |         5 | Lepiej nie czekac, az sami przyjda.                                                                                                                                                              Chlopaki, dawajcie te "rybke"!                                                                                                                                                                                                                                                     |
++---------+-----------+--------+-----------+------------------------------------                                                                                                                                                             --------------------------------------------------------------------------------                                                                                                                                                             ---------------------------------------+
+15 rows in set (0.00 sec)
+
+mysql> select*from sektor;
++------------+--------------------+---------------+---------------+
+| id_sektora | nazwa              | wspolrzedna_x | wspolrzedna_y |
++------------+--------------------+---------------+---------------+
+|          1 | Wioska Kanibali    | A             |             1 |
+|          2 | Zabojcza skala     | B             |             1 |
+|          3 | Magiczna jaskinia  | C             |             1 |
+|          4 | Pieprzne pole      | A             |             2 |
+|          5 | Wulkan             | B             |             2 |
+|          6 | Pieczara tesciowej | C             |             2 |
+|          7 | Chatka dziadka     | A             |             3 |
+|          8 | Kokosowa plaza     | B             |             3 |
+|          9 | Zatoka rekinow     | C             |             3 |
++------------+--------------------+---------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> select w.nazwa,e.sektor  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy
+u ON w,idwyprawy= u.idwyprawy LEFT JOIN etapy_wyprawy e ON u.idwyprawy=e.idwypra
+wy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that                                                                                                                                                              corresponds to your MySQL server version for the right syntax to use near '.kier                                                                                                                                                             ownik FROM wyprawa w LEFT JOIN uczestnicy u ON w,idwyprawy= u.idwyprawy LEF' at                                                                                                                                                              line 1
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy
+ u ON w,idwyprawy= u.idwyprawy LEFT JOIN etapy_wyprawy e ON u.idwyprawy=e.idwypr                                                                                                                                                             awy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that                                                                                                                                                              corresponds to your MySQL server version for the right syntax to use near '= u.i                                                                                                                                                             dwyprawy LEFT JOIN etapy_wyprawy e ON u.idwyprawy=e.idwyprawy GROUP BY w.da' at                                                                                                                                                              line 1
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.idwyprawy= u.idwyprawy LEFT JOIN etapy_wyprawy e ON u.idwyprawy=e.idwypr                                                                                                                                                             awy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1054 (42S22): Unknown column 'u.idwyprawy' in 'on clause'
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.idwyprawy= u.idwyprawy LEFT JOIN etapy_wyprawy e ON u.idwyprawy=e.idWypr                                                                                                                                                             awy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1054 (42S22): Unknown column 'u.idwyprawy' in 'on clause'
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.idwyprawy= u.id_wyprawy LEFT JOIN etapy_wyprawy e ON u.idwyprawy=e.idWyp                                                                                                                                                             rawy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1054 (42S22): Unknown column 'u.idwyprawy' in 'on clause'
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.idwyprawy= u.id_wyprawy LEFT JOIN etapy_wyprawy e ON u.id_wyprawy=e.idWy                                                                                                                                                             prawy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1054 (42S22): Unknown column 'w.idwyprawy' in 'on clause'
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.id_wyprawy= u.id_wyprawy LEFT JOIN etapy_wyprawy e ON u.id_wyprawy=e.idW                                                                                                                                                             yprawy GROUP BY w.data_rozpoczecia ORDER BY e.kolejnosc;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and c                                                                                                                                                             ontains nonaggregated column 'wikingowie.w.nazwa' which is not functionally depe                                                                                                                                                             ndent on columns in GROUP BY clause; this is incompatible with sql_mode=only_ful                                                                                                                                                             l_group_by
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.id_wyprawy= u.id_wyprawy LEFT JOIN etapy_wyprawy e ON u.id_wyprawy=e.idW                                                                                                                                                             yprawy GROUP BY w.nazwa ORDER BY e.kolejnosc;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and c                                                                                                                                                             ontains nonaggregated column 'wikingowie.e.sektor' which is not functionally dep                                                                                                                                                             endent on columns in GROUP BY clause; this is incompatible with sql_mode=only_fu                                                                                                                                                             ll_group_by
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w LEFT JOIN uczestnicy                                                                                                                                                              u ON w.id_wyprawy= u.id_wyprawy LEFT JOIN etapy_wyprawy e ON u.id_wyprawy=e.idW                                                                                                                                                             yprawy  ORDER BY e.kolejnosc;
++-----------------------+--------+-----------+
+| nazwa                 | sektor | kierownik |
++-----------------------+--------+-----------+
+| nikt nie idzie        |   NULL |      NULL |
+| Polowanie na tesciowa |      8 |         1 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Nakarm kanibala       |      6 |        16 |
+| Polowanie na tesciowa |      7 |         1 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Nakarm kanibala       |      6 |        16 |
+| Polowanie na tesciowa |      7 |         1 |
+| Nakarm kanibala       |      6 |        16 |
+| Nakarm kanibala       |      6 |        16 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Polowanie na tesciowa |      7 |         1 |
+| Nakarm kanibala       |      6 |        16 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Nakarm kanibala       |      6 |        16 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Nakarm kanibala       |      9 |        16 |
+| Polowanie na tesciowa |      5 |         1 |
+| Nakarm kanibala       |      9 |        16 |
+| Polowanie na tesciowa |      5 |         1 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Polowanie na tesciowa |      5 |         1 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Polowanie na tesciowa |      5 |         1 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Nakarm kanibala       |      5 |        16 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Nakarm kanibala       |      5 |        16 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Nakarm kanibala       |      5 |        16 |
+| Polowanie na tesciowa |      9 |         1 |
+| Nakarm kanibala       |      5 |        16 |
+| Nakarm kanibala       |      5 |        16 |
+| Polowanie na tesciowa |      9 |         1 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Polowanie na tesciowa |      9 |         1 |
+| Nakarm kanibala       |      5 |        16 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Nakarm kanibala       |      1 |        16 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Nakarm kanibala       |      1 |        16 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Polowanie na tesciowa |      6 |         1 |
++-----------------------+--------+-----------+
+91 rows in set (0.00 sec)
+
+mysql> select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w  JOIN uczestnicy u O                                                                                                                                                             N w.id_wyprawy= u.id_wyprawy  JOIN etapy_wyprawy e ON u.id_wyprawy=e.idWyprawy                                                                                                                                                               ORDER BY e.kolejnosc;
++-----------------------+--------+-----------+
+| nazwa                 | sektor | kierownik |
++-----------------------+--------+-----------+
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Poszukiwanie ziecia   |      6 |        14 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Polowanie na tesciowa |      8 |         1 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Nakarm kanibala       |      7 |        16 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Poszukiwanie ziecia   |      5 |        14 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Polowanie na tesciowa |      7 |         1 |
+| Nakarm kanibala       |      6 |        16 |
+| Nakarm kanibala       |      6 |        16 |
+| Nakarm kanibala       |      6 |        16 |
+| Nakarm kanibala       |      6 |        16 |
+| Nakarm kanibala       |      6 |        16 |
+| Nakarm kanibala       |      6 |        16 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Poszukiwanie ziecia   |      1 |        14 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Polowanie na tesciowa |      5 |         1 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Nakarm kanibala       |      9 |        16 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Poszukiwanie ziecia   |      4 |        14 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Polowanie na tesciowa |      9 |         1 |
+| Nakarm kanibala       |      5 |        16 |
+| Nakarm kanibala       |      5 |        16 |
+| Nakarm kanibala       |      5 |        16 |
+| Nakarm kanibala       |      5 |        16 |
+| Nakarm kanibala       |      5 |        16 |
+| Nakarm kanibala       |      5 |        16 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Poszukiwanie ziecia   |      7 |        14 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Polowanie na tesciowa |      6 |         1 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
+| Nakarm kanibala       |      1 |        16 |
++-----------------------+--------+-----------+
+90 rows in set (0.00 sec)
+
+mysql> select*from sektor
+    -> ;
++------------+--------------------+---------------+---------------+
+| id_sektora | nazwa              | wspolrzedna_x | wspolrzedna_y |
++------------+--------------------+---------------+---------------+
+|          1 | Wioska Kanibali    | A             |             1 |
+|          2 | Zabojcza skala     | B             |             1 |
+|          3 | Magiczna jaskinia  | C             |             1 |
+|          4 | Pieprzne pole      | A             |             2 |
+|          5 | Wulkan             | B             |             2 |
+|          6 | Pieczara tesciowej | C             |             2 |
+|          7 | Chatka dziadka     | A             |             3 |
+|          8 | Kokosowa plaza     | B             |             3 |
+|          9 | Zatoka rekinow     | C             |             3 |
++------------+--------------------+---------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql>
