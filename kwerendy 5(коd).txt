@@ -1,0 +1,73 @@
+kwerendy 5
+Zadanie 1
+1.
+DROP TABLE kreatura;
+CREATE TABLE bronka.kreatura SELECT * FROM wikingowie.kreatura;
+CREATE TABLE bronka.uczestnicy SELECT * FROM wikingowie.uczestnicy;
+CREATE TABLE bronka.etapy_wyprawy SELECT * FROM wikingowie.etapy_wyprawy;
+CREATE TABLE bronka.sektor SELECT * FROM wikingowie.sektor;
+CREATE TABLE bronka.wyprawa SELECT * FROM wikingowie.wyprawa;
+         
+2.
+SELECT nazwa, FROM kreatura WHERE idKreatury NOT IN(SELECT id_uczestnika FROM uczestnicy);
+
+3. 
+SELECT wyprawa.nazwa, SUM(ekwipunek.ilosc) AS 'Ekwipunek lacznie' FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN ekwipunek ON uczestnicy.id_uczestnika=ekwipunek.idKreatury GROUP BY wyprawa.nazwa;
+
+Zadanie 2
+1. 
+SELECT wyprawa.nazwa, COUNT(uczestnicy.id_uczestnika) AS 'Liczba uczestnikow', GROUP_CONCAT(kreatura.nazwa) AS 'Uczestnicy' FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN kreatura ON uczestnicy.id_uczestnika=kreatura.idKreatury GROUP BY wyprawa.nazwa;
+
+2.
+SELECT etapy_wyprawy.dziennik AS 'Etap wyprawy', sektor.nazwa AS 'Nazwa sektora', kreatura.nazwa AS 'Nazwa kierownika' FROM etapy_wyprawy JOIN sektor ON etapy_wyprawy.sektor=sektor.id_sektora JOIN wyprawa ON etapy_wyprawy.idWyprawy=wyprawa.id_wyprawy JOIN kreatura ON wyprawa.kierownik=kreatura.idKreatury ORDER BY wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc ASC;
+
+Zadanie 3
+1. 
+SELECT sektor.nazwa AS 'Nazwa sektora', COUNT(etapy_wyprawy.sektor) AS 'Ilosc odwiedzin' FROM sektor LEFT JOIN etapy_wyprawy ON sektor.id_sektora=etapy_wyprawy.sektor GROUP BY sektor.nazwa;
+
+2.
+SELECT kreatura.nazwa, IF(COUNT(uczestnicy.id_wyprawy)=0, 'nie bral udzialu w wyprawie', 'bral udzial w wyprawie') AS udzial FROM kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury=uczestnicy.id_uczestnika GROUP BY kreatura.nazwa;
+
+Zadanie 4
+1.
+SELECT wyprawa.nazwa, length(GROUP_CONCAT(etapy_wyprawy.dziennik)) AS ilosc_znakow FROM wyprawa JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy GROUP BY wyprawa.nazwa HAVING length(GROUP_CONCAT(etapy_wyprawy.dziennik))<400;
+
+2.
+SELECT wyprawa.nazwa, AVG(zasob.waga*ekwipunek.ilosc) FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN ekwipunek ON uczestnicy.id_uczestnika=ekwipunek.idKreatury JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu GROUP BY wyprawa.nazwa;
+
+Zadanie 5
+1. 
+SELECT kreatura.nazwa, DATEDIFF(wyprawa.data_rozpoczecia, kreatura.dataUr) FROM kreatura JOIN uczestnicy ON kreatura.idKreatury=uczestnicy.id_uczestnika JOIN wyprawa ON uczestnicy.id_wyprawy=wyprawa.id_wyprawy JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy JOIN sektor ON etapy_wyprawy.sektor=sektor.id_sektora WHERE sektor.nazwa="Chatka dziadka";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select w.nazwa,e.sektor,  w.kierownik FROM wyprawa w  JOIN uczestnicy u ON w.id_wyprawy= u.id_wyprawy  JOIN etapy_wyprawy e ON u.id_wyprawy=e.idWyprawy  ORDER BY e.kolejnosc;
